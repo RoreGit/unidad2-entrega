@@ -26,8 +26,9 @@ public class vulnerable {
         sentencia.setInt(3,2010);
         sentencia.executeUpdate();
         sentencia.close();
-        String year = scan.nextLine();
-        String sqlinjection = "SELECT * from vulnerable where año = "+year;
+        System.out.println("Haz aquí la inyección: introduce 'Minecraft';drop table vulnerable;");
+        String nombraso = scan.nextLine();
+        String sqlinjection = "SELECT * from vulnerable where nombre = "+nombraso;
         stmn.execute(sqlinjection);
         stmn.close();
         ConnectionPool.getInstance().closeConnection(conn);
