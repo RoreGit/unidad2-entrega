@@ -1,9 +1,6 @@
-package org.example;
+package org.Ut3;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class accionesResultSet {
@@ -92,6 +89,26 @@ public class accionesResultSet {
             System.out.print(rs.getString(2)+"\t");
             System.out.print(rs.getString(3)+"\t");
             System.out.println(rs.getInt(4));
+            Thread.sleep(1000);
+            System.out.println("MUESTRO LA CANTIDAD DE JUEGOS");
+            String function = "SELECT * FROM countGames();";
+            rs = stmn.executeQuery(function);
+            while (rs.next()) {
+                System.out.println("Hay "+rs.getString(1)+" juegos.");
+            }
+            Thread.sleep(1000);
+            System.out.println("Introduce el id del juego a borrar");
+            int numero = scan.nextInt();
+            String mostrar = "CALL deletegamesbyid(?)";
+            PreparedStatement sentencia =conn.prepareStatement(mostrar);
+            sentencia.setInt(1, numero);
+            sentencia.execute();
+            sentencia.close();
+            Thread.sleep(1000);
+            rs = stmn.executeQuery(function);
+            while (rs.next()) {
+                System.out.println("Ahora quedan "+rs.getString(1)+" juegos.");
+            }
             stmn.close();
             rs.close();
             ConnectionPool.getInstance().closeConnection(conn);
